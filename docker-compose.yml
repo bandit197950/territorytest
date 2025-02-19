@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+    territory_test:
+        container_name: territory_test
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ./:/home/territorytest/code:z
+        networks:
+            - territory_test_network
+
+networks:
+    territory_test_network:
+        driver: bridge
