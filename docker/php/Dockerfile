@@ -21,6 +21,7 @@ RUN apt-get update -y --fix-missing \
         lsb-release \
         ca-certificates \
         gnupg \
+        git \
         procps
 
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
@@ -39,5 +40,7 @@ RUN mkdir -p /home/composer && chmod 777 /home/composer
 COPY ./docker/php/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
+
+RUN composer install
 
 ENTRYPOINT ["/entrypoint.sh"]
