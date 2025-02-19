@@ -22,7 +22,8 @@ RUN apt-get update -y --fix-missing \
         ca-certificates \
         gnupg \
         git \
-        procps
+        procps \
+    && docker-php-ext-install -j$(nproc) zip
 
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
 	&& mkdir -p /usr/local/bin \
@@ -40,7 +41,5 @@ RUN mkdir -p /home/composer && chmod 777 /home/composer
 COPY ./docker/php/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
-
-RUN composer install
 
 ENTRYPOINT ["/entrypoint.sh"]
