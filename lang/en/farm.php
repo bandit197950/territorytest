@@ -6,9 +6,11 @@ return [
 
     "animals.chicken" => "Chicken",
     "animals.cow" => "Cow",
+    "animals.frog" => "Frog",
 
     "production_by_period" => "Total production by :days days:",
 
-    "production.eggs" => "Eggs: :count ut.",
-    "production.milk" => "Milk: :count l."
+    "production.eggs" => "Eggs",
+    "production.frog_legs" => "Frog legs",
+    "production.milk" => "Milk"
 ];

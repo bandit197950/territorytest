@@ -9,18 +9,13 @@ use App\Services\Production\ProductionType;
  */
 class Cow extends FarmAnimal
 {
-    public function __construct()
-    {
-        $this->productionType = ProductionType::Milk;
-    }
-
     /**
      * Cow produce  8-12 litres milk per day.
      * @return int
      */
-    public function production(): int
+    public function production(): AnimalProduction
     {
-        return random_int(8, 12);
+        return new AnimalProduction(__("farm.production.milk"), random_int(8, 12));
     }
 
     /**

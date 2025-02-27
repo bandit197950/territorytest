@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Farm;
 
 
 use App\Services\FarmAnimals\FarmAnimal;
-use App\Services\Production\ProductionInfo;
+use App\Services\Production\ProductionStorage;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -18,7 +18,7 @@ class Farm
      */
     private Collection $farmAnimals;
 
-    public function __construct()
+    public function __construct(private readonly ProductionStorage $productionStorage)
     {
         $this->farmAnimals = new Collection();
     }
@@ -46,21 +46,29 @@ class Farm
     /**
      * Make farm production by animals.
      * @param int $days
-     * @return ProductionInfo
+     * @return void
      */
-    public function makeProduction(int $days): ProductionInfo
+    public function makeProduction(int $days): void
     {
-        $productionInfo = new ProductionInfo();
-        $this->farmAnimals->each(function ($animal) use ($days, &$productionInfo) {
+        $productionStorage = $this->productionStorage;
+        $productionStorage->empty();
+        $this->farmAnimals->each(function ($animal) use ($days, &$productionStorage) {
             /**
              * @var FarmAnimal $animal
              */
             for ($i = 0; $i < $days; $i++) {
-                $productionInfo->addProduction($animal->getProductionType(), $animal->production());
+                $productionStorage->addProduction($animal->production());
             }
         });
+    }
 
-        return $productionInfo;
+    /**
+     * Returns production storage
+     * @return ProductionStorage
+     */
+    public function getProductionStorage(): ProductionStorage
+    {
+        return $this->productionStorage;
     }
 
     /**
