@@ -29,12 +29,12 @@ class FarmManagement
             $this->addToFarm(1, Cow::class);
             $this->addToFarm(5, Chicken::class);
 
-            $this->farm->makeProduction(days: 7);
+            $this->farm->makeProduction($productionDays);
             $this->productionStatistics->showStatistics($this->farm, $productionDays);
 
             $this->addToFarm(50, Frog::class);
 
-            $this->farm->makeProduction(days: 7);
+            $this->farm->makeProduction($productionDays);
             $this->productionStatistics->showStatistics($this->farm, $productionDays);
         } catch(Exception $e) {
             print($e->getMessage());
